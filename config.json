@@ -1,0 +1,12 @@
+{
+  "screenSize":{
+    "width": 1200,
+    "height": 1200,
+    "fullPage": true
+  },
+  "urls":[
+    "https://www.gov.uk",
+    "https://www.gov.uk/register-to-vote",
+    "https://www.gov.uk/service-toolkit"
+  ]
+}

@@ -1,17 +1,27 @@
-# Web Screenshot
+# WShot
 
-A node script to take screenshots of web pages
+A command line app to take screenshots of web pages, written in NodeJS.
+
+## Install
+
+Run `npm install -g wshot`
 
 ## How to use
 
-1. Clone or download this repo
+You can get a screenshot of a URL (must start with http:// or https://)
 
-2. In the terminal, change to the directory you downloaded it to
+`wshot https://www.gov.uk`
 
-3. Run `npm install`
+Or multiple URLs, using a text file with each URL on a new line:
 
-4. Edit the config.json file with the urls you need to screenshot
+`wshot urls.txt`
 
-5. Run `npm start`
+Screenshots are saved into a folder called `screenshots`.
 
-Your screenshots will be saved to the /screenshots folder
+You can set browser width, it defaults to 1200 pixels.
+
+`wshot https://www.gov.uk --width 320`
+
+By default, you'll get a screenshot of the full height of the page. To get a set height:
+
+`wshot https://www.gov.uk --height 800 --fullPage false`

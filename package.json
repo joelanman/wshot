@@ -1,5 +1,5 @@
 {
-  "name": "web-screenshot",
+  "name": "wshot",
   "version": "1.0.0",
   "description": "",
   "main": "screenshot.js",
@@ -10,6 +10,10 @@
   "author": "Joe Lanman",
   "license": "ISC",
   "dependencies": {
+    "commander": "^2.15.1",
     "puppeteer": "^1.2.0"
+  },
+  "bin": {
+    "wshot": "./screenshot.js"
   }
 }

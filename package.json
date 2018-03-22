@@ -1,5 +1,5 @@
 {
-  "name": "web-screenshot",
+  "name": "wshot",
   "version": "1.0.0",
   "description": "",
   "main": "screenshot.js",
@@ -14,6 +14,6 @@
     "puppeteer": "^1.2.0"
   },
   "bin": {
-    "screenshot": "./screenshot-cli.js"
+    "wshot": "./screenshot.js"
   }
 }

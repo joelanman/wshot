@@ -25,7 +25,7 @@ program
     filename = filename.replace(/^www\./,'')
     filename = filename.replace(/\//g,'-')+'.png'
     await page.screenshot({
-        fullPage: (typeof program.fullPage === 'undefined') ? true : program.fullPage,
+        fullPage: program.fullPage !== 'false',
         path: screenshotFolder + '/' + filename
     })
     await browser.close()

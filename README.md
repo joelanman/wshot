@@ -24,4 +24,4 @@ You can set browser width, it defaults to 1200 pixels.
 
 By default, you'll get a screenshot of the full height of the page. To get a set height:
 
-`wshot https://www.gov.uk --height 800 --fullPage false`
+`wshot https://www.gov.uk --height 800`

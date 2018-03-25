@@ -2,10 +2,11 @@
   "name": "wshot",
   "version": "1.0.0",
   "description": "",
-  "main": "screenshot.js",
+  "main": "./dist/screenshot.js",
   "scripts": {
+    "build": "rm -rf dist && mkdir dist && ./node_modules/.bin/babel src --out-dir dist",
     "start": "node screenshot.js",
-    "test": "standard"
+    "test": "standard src"
   },
   "author": "Joe Lanman",
   "license": "ISC",
@@ -14,9 +15,11 @@
     "puppeteer": "^1.2.0"
   },
   "bin": {
-    "wshot": "./screenshot.js"
+    "wshot": "./dist/screenshot.js"
   },
   "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.6.1",
     "standard": "^11.0.1"
   }
 }

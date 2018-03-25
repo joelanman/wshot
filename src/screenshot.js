@@ -17,9 +17,11 @@ function delay (timeout) {
 program
   .arguments('<input>')
   .option('-w, --width <width>', 'The width of the viewport in pixels (defaults to 1200)')
-  .option('-h, --height <height>', 'The height of the viewport in pixels (defaults to 1200)')
-  .option('-f, --fullPage <fullPage>', 'Full page (defaults to true)')
+  .option('-h, --height <height>', 'The height of the viewport in pixels (defaults to the full height of the page)')
   .action(async function (input) {
+
+    const fullPage = (program.height === undefined)
+
     let urls = []
 
     try {
@@ -48,7 +50,7 @@ program
       filename = filename.replace(/^www\./, '')
       filename = filename.replace(/\//g, '-') + '.png'
       await page.screenshot({
-        fullPage: program.fullPage !== 'false',
+        fullPage: fullPage,
         path: screenshotFolder + '/' + filename
       })
       if (index < urls.length - 1) {

@@ -1,5 +1,11 @@
 # Changelog
 
+## Unreleased
+
+Fixes:
+
+ - [Check if input is missing, add name and examples for commander help](https://github.com/joelanman/wshot/pull/9)
+
 ## 1.1.0
 
 New features:

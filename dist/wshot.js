@@ -24,7 +24,10 @@ const description = `Take screenshots of web pages.
   Examples:
 
   wshot https://www.gov.uk
-  wshot myURLs.text
+  wshot myURLs.txt
+
+  If you supply a text file, it should be a list of URLs, each on a new line.
+  wshot will take a screenshot of each URL.
 `;
 
 program.arguments('<input>').description(description).option('-w, --width <width>', 'The width of the viewport in pixels (defaults to 1200)').option('-h, --height <height>', 'The height of the viewport in pixels (defaults to the full height of the page)').action(function (input) {

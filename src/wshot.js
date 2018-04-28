@@ -62,15 +62,14 @@ try {
   const timeout = 10 * 1000
   const browser = await puppeteer.launch()
   const page = await browser.newPage()
+  let delayBetweenCalls = 0;
   await page.setViewport({
     width: parseInt(program.width || 1200),
     height: parseInt(program.height || 1200)
   })
-  for (let index = 0; index < urls.length; index++) {
-    let url = urls[index]
-    if (url === '') {
-      continue
-    }
+  for (let url of urls.filter(line => line.trim())) {
+    await delay(delayBetweenCalls)
+    delayBetweenCalls = 1000
     console.log(url)
     try {
       await page.goto(url, {
@@ -95,9 +94,6 @@ try {
       fullPage: fullPage,
       path: screenshotFolder + '/' + filename
     })
-    if (index < urls.length - 1) {
-      await delay(1000)
-    }
   }
   await browser.close()
 

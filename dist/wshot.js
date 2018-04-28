@@ -56,6 +56,7 @@ try {
 
 _asyncToGenerator(function* () {
 
+  const timeout = 10 * 1000;
   const browser = yield puppeteer.launch();
   const page = yield browser.newPage();
   yield page.setViewport({
@@ -68,7 +69,22 @@ _asyncToGenerator(function* () {
       continue;
     }
     console.log(url);
-    yield page.goto(url);
+    try {
+      yield page.goto(url, {
+        timeout: timeout
+      });
+    } catch (error) {
+      if (error.message.indexOf("Navigation Timeout Exceeded") === 0) {
+        console.error(`Error: Server did not respond within ${timeout / 1000} seconds`);
+        continue;
+      } else if (error.message.indexOf("Protocol error (Page.navigate): Cannot navigate to invalid URL") === 0) {
+        console.error(`Error: This doesn't seem to be a correct URL`);
+        continue;
+      } else {
+        console.error(error);
+        continue;
+      }
+    }
     let filename = url.replace(/^https?:\/\//, '');
     filename = filename.replace(/^www\./, '');
     filename = filename.replace(/\//g, '-') + '.png';

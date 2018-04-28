@@ -4,6 +4,7 @@
 
 Fixes:
 
+ - [Improve help description](https://github.com/joelanman/wshot/pull/12)
  - [Check if input is missing, add name and examples for commander help](https://github.com/joelanman/wshot/pull/9)
 
 ## 1.1.0

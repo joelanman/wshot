@@ -21,7 +21,10 @@ const description = `Take screenshots of web pages.
   Examples:
 
   wshot https://www.gov.uk
-  wshot myURLs.text
+  wshot myURLs.txt
+
+  If you supply a text file, it should be a list of URLs, each on a new line.
+  wshot will take a screenshot of each URL.
 `
 
 program

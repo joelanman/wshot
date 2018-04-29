@@ -59,42 +59,62 @@ _asyncToGenerator(function* () {
   const timeout = 10 * 1000;
   const browser = yield puppeteer.launch();
   const page = yield browser.newPage();
+  let delayBetweenCalls = 0;
   yield page.setViewport({
     width: parseInt(program.width || 1200),
     height: parseInt(program.height || 1200)
   });
-  for (let index = 0; index < urls.length; index++) {
-    let url = urls[index];
-    if (url === '') {
-      continue;
-    }
-    console.log(url);
-    try {
-      yield page.goto(url, {
-        timeout: timeout
+  var _iteratorNormalCompletion = true;
+  var _didIteratorError = false;
+  var _iteratorError = undefined;
+
+  try {
+    for (var _iterator = urls.filter(function (line) {
+      return line.trim();
+    })[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+      let url = _step.value;
+
+      yield delay(delayBetweenCalls);
+      delayBetweenCalls = 1000;
+      console.log(url);
+      try {
+        yield page.goto(url, {
+          timeout: timeout
+        });
+      } catch (error) {
+        if (error.message.indexOf("Navigation Timeout Exceeded") === 0) {
+          console.error(`Error: Server did not respond within ${timeout / 1000} seconds`);
+          continue;
+        } else if (error.message.indexOf("Protocol error (Page.navigate): Cannot navigate to invalid URL") === 0) {
+          console.error(`Error: This doesn't seem to be a correct URL`);
+          continue;
+        } else {
+          console.error(error);
+          continue;
+        }
+      }
+      let filename = url.replace(/^https?:\/\//, '');
+      filename = filename.replace(/^www\./, '');
+      filename = filename.replace(/\//g, '-') + '.png';
+      yield page.screenshot({
+        fullPage: fullPage,
+        path: screenshotFolder + '/' + filename
       });
-    } catch (error) {
-      if (error.message.indexOf("Navigation Timeout Exceeded") === 0) {
-        console.error(`Error: Server did not respond within ${timeout / 1000} seconds`);
-        continue;
-      } else if (error.message.indexOf("Protocol error (Page.navigate): Cannot navigate to invalid URL") === 0) {
-        console.error(`Error: This doesn't seem to be a correct URL`);
-        continue;
-      } else {
-        console.error(error);
-        continue;
+    }
+  } catch (err) {
+    _didIteratorError = true;
+    _iteratorError = err;
+  } finally {
+    try {
+      if (!_iteratorNormalCompletion && _iterator.return) {
+        _iterator.return();
+      }
+    } finally {
+      if (_didIteratorError) {
+        throw _iteratorError;
       }
     }
-    let filename = url.replace(/^https?:\/\//, '');
-    filename = filename.replace(/^www\./, '');
-    filename = filename.replace(/\//g, '-') + '.png';
-    yield page.screenshot({
-      fullPage: fullPage,
-      path: screenshotFolder + '/' + filename
-    });
-    if (index < urls.length - 1) {
-      yield delay(1000);
-    }
   }
+
   yield browser.close();
 })();
